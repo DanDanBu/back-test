@@ -1,0 +1,13 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "baseUrl": ".", // 加這個才能讓 paths 生效
+    "paths": {
+      "@/*": ["src/*"] // 讓 @ 指向 src 資料夾
+    }
+  }
+}
