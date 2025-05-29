@@ -1,21 +1,8 @@
-from fastapi import FastAPI, Query
 import yfinance as yf
 import pandas as pd
-from typing import Optional
-from fastapi.middleware.cors import CORSMiddleware
+from app.models.schema import BacktestResponse
 
-app = FastAPI()
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # 實際上建議改成 ["http://localhost:5173"]
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-@app.get("/backtest")
-def backtest(symbol: str = "AAPL", short_window: int = 20, long_window: int = 50):
+def run_backtest(symbol: str, short_window: int, long_window: int) -> BacktestResponse:
     data = yf.download(symbol, period="1y")
     if data.empty:
         return {"error": "No data found."}
