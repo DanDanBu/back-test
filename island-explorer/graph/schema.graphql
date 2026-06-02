@@ -1,0 +1,44 @@
+type Player {
+  id: ID!
+  name: String!
+  avatarType: Int!
+  xp: Int!
+  coins: Int!
+  collectedItems: [String!]!
+  position: Position!
+  createdAt: String!
+}
+
+type Position {
+  x: Float!
+  y: Float!
+  z: Float!
+}
+
+type Achievement {
+  id: ID!
+  playerId: ID!
+  achieveId: String!
+  name: String!
+  description: String!
+  reward: Int!
+  unlockedAt: String!
+}
+
+type Query {
+  getPlayer(id: ID!): Player
+  getAchievements(playerId: ID!): [Achievement!]!
+  listPlayers: [Player!]!
+}
+
+type Mutation {
+  createPlayer(name: String!, avatarType: Int): Player!
+  updatePlayer(id: ID!, xp: Int, coins: Int, collectedItems: [String!], position: PositionInput): Player
+  unlockAchievement(playerId: ID!, achieveId: String!, name: String!, description: String!, reward: Int!): Achievement!
+}
+
+input PositionInput {
+  x: Float!
+  y: Float!
+  z: Float!
+}
