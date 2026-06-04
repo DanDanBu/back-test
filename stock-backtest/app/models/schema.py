@@ -26,22 +26,18 @@ class FundamentalsResponse(BaseModel):
     current_price: Optional[float] = None
     market_cap: Optional[float] = None
 
-    # Valuation — Buffett + Lynch
     pe_ratio: FundamentalMetric
     pb_ratio: FundamentalMetric
     ps_ratio: FundamentalMetric
     peg_ratio: FundamentalMetric
 
-    # Profitability — Buffett moat
     roe: FundamentalMetric
     operating_margin: FundamentalMetric
     profit_margin: FundamentalMetric
 
-    # Financial health — Buffett safety margin
     debt_to_equity: FundamentalMetric
     current_ratio: FundamentalMetric
 
-    # Growth — Lynch strategy
     earnings_growth: FundamentalMetric
     revenue_growth: FundamentalMetric
 
@@ -52,3 +48,30 @@ class FundamentalsResponse(BaseModel):
 
     overall_score: str = "hold"
     score_points: int = 0
+
+
+# ── Watchlist ────────────────────────────────────────────────────────────────
+
+class WatchlistItem(BaseModel):
+    symbol: str
+    company_name: str
+    added_at: str
+
+
+class WatchlistEntry(BaseModel):
+    symbol: str
+    company_name: str
+    current_price: Optional[float] = None
+    change: Optional[float] = None
+    change_pct: Optional[float] = None
+    # "normal" | "warning" | "disposition" | "n_a" | "unknown"
+    disposition_status: str = "unknown"
+
+
+class WatchlistResponse(BaseModel):
+    items: List[WatchlistEntry]
+    updated_at: str
+
+
+class AddSymbolRequest(BaseModel):
+    symbol: str
