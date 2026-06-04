@@ -8,6 +8,7 @@ export interface BacktestResult {
 
 export type Grade = "excellent" | "good" | "fair" | "poor" | "unknown";
 export type OverallScore = "strong_buy" | "buy" | "hold" | "sell" | "strong_sell";
+export type DispositionStatus = "normal" | "warning" | "disposition" | "n_a" | "unknown";
 
 export interface FundamentalMetric {
   value: number | null;
@@ -47,4 +48,18 @@ export interface FundamentalsData {
 
   overall_score: OverallScore;
   score_points: number;
+}
+
+export interface WatchlistEntry {
+  symbol: string;
+  company_name: string;
+  current_price: number | null;
+  change: number | null;
+  change_pct: number | null;
+  disposition_status: DispositionStatus;
+}
+
+export interface WatchlistResponse {
+  items: WatchlistEntry[];
+  updated_at: string;
 }
