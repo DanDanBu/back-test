@@ -1,3 +1,4 @@
+import math
 import yfinance as yf
 from typing import Optional, Tuple
 from app.models.schema import FundamentalsResponse, FundamentalMetric
@@ -90,6 +91,19 @@ def _grade_net_margin(v: Optional[float]) -> Tuple[str, str]:
     return "poor", "淨利率過低"
 
 
+def _grade_roic(v: Optional[float]) -> Tuple[str, str]:
+    if v is None:
+        return "unknown", "無法評估"
+    pct = v * 100
+    if pct >= 15:
+        return "excellent", "巴菲特: 資本配置效率極高，寬護城河"
+    if pct >= 10:
+        return "good", "資本回報良好"
+    if pct >= 5:
+        return "fair", "資本效率普通"
+    return "poor", "資本回報低於資金成本，護城河薄弱"
+
+
 def _grade_de(v: Optional[float]) -> Tuple[str, str]:
     if v is None or v < 0:
         return "unknown", "無法評估"
@@ -112,6 +126,18 @@ def _grade_current_ratio(v: Optional[float]) -> Tuple[str, str]:
     if v >= 1.0:
         return "fair", "勉強覆蓋流動負債"
     return "poor", "短期流動性不足，注意風險"
+
+
+def _grade_interest_coverage(v: Optional[float]) -> Tuple[str, str]:
+    if v is None:
+        return "unknown", "無法評估"
+    if v >= 10:
+        return "excellent", "巴菲特: 利息保障極充足，財務安全"
+    if v >= 5:
+        return "good", "還息能力良好"
+    if v >= 2:
+        return "fair", "還息能力普通，需留意"
+    return "poor", "利息保障不足，財務風險高"
 
 
 def _grade_earnings_growth(v: Optional[float]) -> Tuple[str, str]:
@@ -140,6 +166,15 @@ def _grade_revenue_growth(v: Optional[float]) -> Tuple[str, str]:
     if pct >= 0:
         return "fair", "溫和成長"
     return "poor", "營收衰退，基本面惡化"
+
+
+def _latest(df, row: str) -> Optional[float]:
+    if df is None or row not in df.index:
+        return None
+    val = df.loc[row].iloc[0]
+    if val is None or (isinstance(val, float) and math.isnan(val)):
+        return None
+    return float(val)
 
 
 def _make(value: Optional[float], grade: str, hint: str, label: str, fmt: str = "number") -> FundamentalMetric:
@@ -193,6 +228,28 @@ def get_fundamentals(symbol: str) -> FundamentalsResponse:
     # yfinance sometimes returns D/E in percentage form (e.g. 180 = 1.80x ratio)
     de_val = de_raw / 100.0 if (de_raw is not None and de_raw > 10) else de_raw
 
+    try:
+        financials = ticker.financials
+        balance_sheet = ticker.balance_sheet
+    except Exception:
+        financials, balance_sheet = None, None
+
+    ebit_val = _latest(financials, "EBIT")
+    invested_capital_val = _latest(balance_sheet, "Invested Capital")
+    tax_rate_val = _latest(financials, "Tax Rate For Calcs")
+    interest_expense_val = _latest(financials, "Interest Expense")
+    if interest_expense_val is None:
+        interest_expense_val = _latest(financials, "Interest Expense Non Operating")
+
+    roic_val = None
+    if ebit_val is not None and invested_capital_val:
+        tax_rate = tax_rate_val if tax_rate_val is not None else 0.21
+        roic_val = (ebit_val * (1 - tax_rate)) / invested_capital_val
+
+    interest_coverage_val = None
+    if ebit_val is not None and interest_expense_val:
+        interest_coverage_val = ebit_val / abs(interest_expense_val)
+
     pe_g, pe_h = _grade_pe(pe_val)
     pb_g, pb_h = _grade_pb(pb_val)
     ps_g, ps_h = _grade_ps(ps_val)
@@ -200,13 +257,15 @@ def get_fundamentals(symbol: str) -> FundamentalsResponse:
     roe_g, roe_h = _grade_roe(roe_val)
     om_g, om_h = _grade_op_margin(om_val)
     pm_g, pm_h = _grade_net_margin(pm_val)
+    roic_g, roic_h = _grade_roic(roic_val)
     de_g, de_h = _grade_de(de_val)
     cr_g, cr_h = _grade_current_ratio(cr_val)
+    ic_g, ic_h = _grade_interest_coverage(interest_coverage_val)
     eg_g, eg_h = _grade_earnings_growth(eg_val)
     rg_g, rg_h = _grade_revenue_growth(rg_val)
 
     score, pts = _compute_score(
-        [pe_g, pb_g, ps_g, peg_g, roe_g, om_g, pm_g, de_g, cr_g, eg_g, rg_g]
+        [pe_g, pb_g, ps_g, peg_g, roe_g, om_g, pm_g, roic_g, de_g, cr_g, ic_g, eg_g, rg_g]
     )
 
     return FundamentalsResponse(
@@ -223,8 +282,10 @@ def get_fundamentals(symbol: str) -> FundamentalsResponse:
         roe=_make(roe_val, roe_g, roe_h, "股東權益報酬 ROE", "percent"),
         operating_margin=_make(om_val, om_g, om_h, "營業利潤率", "percent"),
         profit_margin=_make(pm_val, pm_g, pm_h, "淨利率", "percent"),
+        roic=_make(roic_val, roic_g, roic_h, "投入資本回報 ROIC", "percent"),
         debt_to_equity=_make(de_val, de_g, de_h, "負債/股東權益", "ratio"),
         current_ratio=_make(cr_val, cr_g, cr_h, "流動比率", "ratio"),
+        interest_coverage=_make(interest_coverage_val, ic_g, ic_h, "利息保障倍數", "ratio1"),
         earnings_growth=_make(eg_val, eg_g, eg_h, "盈利成長率 YoY", "percent"),
         revenue_growth=_make(rg_val, rg_g, rg_h, "營收成長率 YoY", "percent"),
         eps=info.get("trailingEps"),

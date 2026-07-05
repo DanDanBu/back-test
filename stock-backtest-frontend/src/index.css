@@ -130,7 +130,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.7rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -150,7 +150,7 @@
 .metric-card {
   background: rgba(0,0,0,0.28);
   border-radius: 8px;
-  padding: 11px 14px;
+  padding: 14px 16px;
   border: 1px solid rgba(255,255,255,0.04);
   transition: border-color 0.2s, background 0.2s;
 }
@@ -165,7 +165,7 @@
   align-items: center;
   padding: 1px 8px;
   border-radius: 999px;
-  font-size: 0.68rem;
+  font-size: 0.8rem;
   font-weight: 700;
   border: 1px solid;
 }
@@ -181,8 +181,8 @@
   border: 1px solid rgba(0,212,255,0.18);
   border-radius: 8px;
   color: var(--text-1);
-  padding: 9px 14px;
-  font-size: 0.9rem;
+  padding: 11px 16px;
+  font-size: 1.05rem;
   transition: border-color 0.2s, box-shadow 0.2s;
   outline: none;
 }
@@ -198,8 +198,8 @@
   border: 1px solid rgba(0,212,255,0.35);
   border-radius: 8px;
   color: var(--cyan);
-  padding: 9px 22px;
-  font-size: 0.9rem;
+  padding: 11px 24px;
+  font-size: 1.05rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
@@ -214,9 +214,9 @@
 .tech-button:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
 
 /* ── Score bar dots ────────────────────────────────────── */
-.score-bar { display: flex; gap: 5px; align-items: center; }
+.score-bar { display: flex; gap: 6px; align-items: center; }
 .score-dot {
-  width: 10px; height: 28px;
+  width: 11px; height: 32px;
   border-radius: 3px;
   transition: box-shadow 0.3s;
 }
@@ -265,8 +265,8 @@
   background: rgba(5,10,20,0.6);
 }
 .tab-btn {
-  padding: 12px 20px;
-  font-size: 0.85rem;
+  padding: 14px 22px;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-3);
   border: none;
@@ -289,8 +289,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr auto auto auto;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
+  gap: 14px;
+  padding: 14px 18px;
   border-radius: 8px;
   border: 1px solid rgba(255,255,255,0.04);
   background: rgba(0,0,0,0.25);
@@ -308,7 +308,7 @@
   border: 1px solid rgba(255,255,255,0.06);
   border-radius: 6px;
   color: #334155;
-  width: 28px; height: 28px;
+  width: 32px; height: 32px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s;

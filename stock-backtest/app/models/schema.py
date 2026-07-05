@@ -34,9 +34,11 @@ class FundamentalsResponse(BaseModel):
     roe: FundamentalMetric
     operating_margin: FundamentalMetric
     profit_margin: FundamentalMetric
+    roic: FundamentalMetric
 
     debt_to_equity: FundamentalMetric
     current_ratio: FundamentalMetric
+    interest_coverage: FundamentalMetric
 
     earnings_growth: FundamentalMetric
     revenue_growth: FundamentalMetric

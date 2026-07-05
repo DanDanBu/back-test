@@ -1,31 +1,71 @@
 # stock-backtest
 
-This project uses [Poetry](https://python-poetry.org/) for Python dependency and virtual environment management.
+A stock analysis app with two independent projects:
 
-## Installation
+- [`stock-backtest/`](stock-backtest/) — FastAPI backend (Python, Poetry) serving fundamentals, backtest, and watchlist APIs on `:8000`
+- [`stock-backtest-frontend/`](stock-backtest-frontend/) — React + TypeScript frontend (Vite) on `:5173`
 
-1. Install Poetry (if you haven't already):
+The frontend calls the backend over HTTP at `http://localhost:8000`, so both must be running for the app to work.
 
-    ```sh
-    pip install poetry
-    ```
+## Prerequisites
 
-2. Install project dependencies:
+- Python >= 3.11 and [Poetry](https://python-poetry.org/)
+- Node.js and npm
 
-    ```sh
-    poetry install
-    ```
+## Setup (first time only)
 
-3. (Optional) Activate the Poetry virtual environment:
+```sh
+# backend
+cd stock-backtest
+poetry install
+cd ..
 
-    ```sh
-    poetry shell
-    ```
+# frontend
+cd stock-backtest-frontend
+npm install
+cd ..
+```
 
-## Running the Project
+## Running everything with one command
 
-uvicorn main:app --reload
+From the repo root:
 
+```sh
+./start.sh
+```
+
+On Windows PowerShell:
+
+```powershell
+.\start.ps1
+```
+
+This starts the backend on http://localhost:8000 and the frontend on http://localhost:5173 together. Press `Ctrl+C` to stop both.
+
+## Running backend/frontend separately
+
+<details>
+<summary>Backend</summary>
+
+```sh
+cd stock-backtest
+poetry install                        # install dependencies
+uvicorn app.main:app --reload         # run dev server on :8000
+```
+</details>
+
+<details>
+<summary>Frontend</summary>
+
+```sh
+cd stock-backtest-frontend
+npm install
+npm run dev        # Vite dev server on :5173
+npm run build      # tsc -b && vite build
+npm run lint       # eslint .
+npm run preview    # preview production build
+```
+</details>
 
 ---
 

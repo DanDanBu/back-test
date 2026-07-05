@@ -21,13 +21,13 @@ function MetricCard({ metric }: { metric: FundamentalMetric }) {
   return (
     <div className="metric-card" style={{ borderLeft: `3px solid ${cfg.border}` }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
-        <span style={{ fontSize: "0.72rem", color: "#94a3b8" }}>{metric.label}</span>
+        <span style={{ fontSize: "0.84rem", color: "#94a3b8" }}>{metric.label}</span>
         <span className={`badge ${cfg.badgeClass}`}>{cfg.label}</span>
       </div>
       <div
         className="mono"
         style={{
-          fontSize: "1.35rem",
+          fontSize: "1.5rem",
           fontWeight: 700,
           color: cfg.color,
           textShadow: `0 0 10px ${cfg.color}55`,
@@ -37,7 +37,7 @@ function MetricCard({ metric }: { metric: FundamentalMetric }) {
       >
         {metric.formatted}
       </div>
-      <div style={{ fontSize: "0.68rem", color: "#475569", lineHeight: 1.4 }}>{metric.hint}</div>
+      <div style={{ fontSize: "0.8rem", color: "#475569", lineHeight: 1.4 }}>{metric.hint}</div>
     </div>
   );
 }
@@ -65,33 +65,33 @@ export default function FundamentalsPanel({ data }: Props) {
   const sc = SCORE_CFG[data.overall_score] ?? SCORE_CFG.hold;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
 
       {/* ── Overall score ───────────────────────────────────── */}
       <div
         className="glass-card"
         style={{
-          padding: "16px 20px",
+          padding: "20px 24px",
           border: `1px solid ${sc.border}`,
           display: "flex",
           alignItems: "center",
-          gap: 16,
+          gap: 18,
         }}
       >
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: "0.68rem", color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>
+          <div style={{ fontSize: "0.8rem", color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>
             綜合評分
           </div>
-          <div style={{ fontSize: "1.2rem", fontWeight: 700, color: sc.color }}>{sc.label}</div>
+          <div style={{ fontSize: "1.35rem", fontWeight: 700, color: sc.color }}>{sc.label}</div>
         </div>
         <div style={{ textAlign: "right" }}>
           <div
             className="mono"
-            style={{ fontSize: "2.2rem", fontWeight: 700, color: sc.color, textShadow: `0 0 24px ${sc.color}60`, lineHeight: 1 }}
+            style={{ fontSize: "2.4rem", fontWeight: 700, color: sc.color, textShadow: `0 0 24px ${sc.color}60`, lineHeight: 1 }}
           >
             {data.score_points > 0 ? "+" : ""}{data.score_points}
           </div>
-          <div style={{ fontSize: "0.68rem", color: "#475569" }}>評分點數</div>
+          <div style={{ fontSize: "0.8rem", color: "#475569" }}>評分點數</div>
         </div>
         <div className="score-bar" style={{ marginLeft: 4 }}>
           {[1, 2, 3, 4, 5].map(i => (
@@ -108,7 +108,7 @@ export default function FundamentalsPanel({ data }: Props) {
       </div>
 
       {/* ── Quick stats ─────────────────────────────────────── */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
         {[
           {
             label: "市值",
@@ -131,9 +131,9 @@ export default function FundamentalsPanel({ data }: Props) {
             color: "#00d4ff",
           },
         ].map(({ label, value, color }) => (
-          <div key={label} className="glass-card" style={{ padding: "10px 14px" }}>
-            <div style={{ fontSize: "0.68rem", color: "#64748b", marginBottom: 4 }}>{label}</div>
-            <div className="mono" style={{ fontSize: "0.95rem", fontWeight: 700, color }}>{value}</div>
+          <div key={label} className="glass-card" style={{ padding: "12px 16px" }}>
+            <div style={{ fontSize: "0.8rem", color: "#64748b", marginBottom: 4 }}>{label}</div>
+            <div className="mono" style={{ fontSize: "1.1rem", fontWeight: 700, color }}>{value}</div>
           </div>
         ))}
       </div>
@@ -143,7 +143,7 @@ export default function FundamentalsPanel({ data }: Props) {
         <div className="section-label">
           估值指標 <span className="sub">巴菲特 · 林區</span>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
           <MetricCard metric={data.pe_ratio} />
           <MetricCard metric={data.pb_ratio} />
           <MetricCard metric={data.peg_ratio} />
@@ -156,10 +156,11 @@ export default function FundamentalsPanel({ data }: Props) {
         <div className="section-label">
           獲利能力 <span className="sub">巴菲特護城河</span>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <MetricCard metric={data.roe} />
           <MetricCard metric={data.operating_margin} />
           <MetricCard metric={data.profit_margin} />
+          <MetricCard metric={data.roic} />
         </div>
       </div>
 
@@ -168,9 +169,10 @@ export default function FundamentalsPanel({ data }: Props) {
         <div className="section-label">
           財務健康 <span className="sub">巴菲特安全邊際</span>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
           <MetricCard metric={data.debt_to_equity} />
           <MetricCard metric={data.current_ratio} />
+          <MetricCard metric={data.interest_coverage} />
         </div>
       </div>
 
@@ -179,7 +181,7 @@ export default function FundamentalsPanel({ data }: Props) {
         <div className="section-label">
           成長指標 <span className="sub">林區成長策略</span>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
           <MetricCard metric={data.earnings_growth} />
           <MetricCard metric={data.revenue_growth} />
         </div>
@@ -188,14 +190,14 @@ export default function FundamentalsPanel({ data }: Props) {
       {/* ── Buffett / Lynch legend ───────────────────────────── */}
       <div
         style={{
-          fontSize: "0.68rem",
+          fontSize: "0.8rem",
           color: "#334155",
           lineHeight: 1.7,
           borderTop: "1px solid rgba(255,255,255,0.04)",
           paddingTop: 12,
         }}
       >
-        <strong style={{ color: "#475569" }}>巴菲特</strong>：ROE&gt;20%、低D/E、寬護城河（高利潤率）、低P/B｜
+        <strong style={{ color: "#475569" }}>巴菲特</strong>：ROE&gt;20%、ROIC&gt;15%、低D/E、利息保障&gt;10x、寬護城河（高利潤率）、低P/B｜
         <strong style={{ color: "#475569" }}>林區</strong>：PEG&lt;1、高盈利成長、低P/S
       </div>
     </div>

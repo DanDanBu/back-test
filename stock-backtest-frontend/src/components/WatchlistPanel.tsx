@@ -26,17 +26,17 @@ function DispositionBadge({ status }: { status: DispositionStatus }) {
 
 function PriceCell({ price, change, changePct }: { price: number | null; change: number | null; changePct: number | null }) {
   if (price == null) {
-    return <span style={{ color: "#334155", fontSize: "0.82rem" }}>—</span>;
+    return <span style={{ color: "#334155", fontSize: "0.97rem" }}>—</span>;
   }
   const up = (change ?? 0) >= 0;
   const color = change === 0 ? "#64748b" : up ? "#00ff88" : "#ff4040";
   return (
     <div style={{ textAlign: "right" }}>
-      <div className="mono" style={{ fontSize: "0.95rem", fontWeight: 700, color, textShadow: `0 0 8px ${color}40` }}>
+      <div className="mono" style={{ fontSize: "1.1rem", fontWeight: 700, color, textShadow: `0 0 8px ${color}40` }}>
         {price.toFixed(2)}
       </div>
       {changePct != null && (
-        <div className="mono" style={{ fontSize: "0.72rem", color: `${color}bb` }}>
+        <div className="mono" style={{ fontSize: "0.84rem", color: `${color}bb` }}>
           {up ? "+" : ""}{changePct.toFixed(2)}%
         </div>
       )}
@@ -99,11 +99,11 @@ export default function WatchlistPanel({ onSelectStock }: Props) {
   const items: WatchlistEntry[] = data?.items ?? [];
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: 860, margin: "0 auto" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 22, maxWidth: 920, margin: "0 auto" }}>
 
       {/* ── Add stock ──────────────────────────────────────── */}
-      <div className="glass-card" style={{ padding: "18px 20px" }}>
-        <div style={{ fontSize: "0.7rem", color: "#475569", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>
+      <div className="glass-card" style={{ padding: "22px 24px" }}>
+        <div style={{ fontSize: "0.82rem", color: "#475569", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>
           新增股票到持股清單
         </div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
@@ -123,13 +123,13 @@ export default function WatchlistPanel({ onSelectStock }: Props) {
             onClick={fetchWatchlist}
             disabled={loading}
             className="tech-button"
-            style={{ padding: "9px 14px", fontSize: "0.82rem", color: "#64748b", borderColor: "rgba(100,116,139,0.3)" }}
+            style={{ padding: "9px 14px", fontSize: "0.97rem", color: "#64748b", borderColor: "rgba(100,116,139,0.3)" }}
           >
             {loading ? <span className="spinner" /> : "重新整理"}
           </button>
         </div>
-        {addError && <div style={{ fontSize: "0.8rem", color: "#ff4040", marginTop: 8 }}>{addError}</div>}
-        <div style={{ fontSize: "0.68rem", color: "#334155", marginTop: 10 }}>
+        {addError && <div style={{ fontSize: "0.95rem", color: "#ff4040", marginTop: 8 }}>{addError}</div>}
+        <div style={{ fontSize: "0.8rem", color: "#334155", marginTop: 10 }}>
           台股請加 <code style={{ color: "#475569" }}>.TW</code> 後綴 (如 <code style={{ color: "#475569" }}>2330.TW</code>)
           ，上櫃股票加 <code style={{ color: "#475569" }}>.TWO</code>。
           處置狀態僅適用於台灣上市股票 (TWSE)。
@@ -138,11 +138,11 @@ export default function WatchlistPanel({ onSelectStock }: Props) {
 
       {/* ── Legend ─────────────────────────────────────────── */}
       <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
-        <span style={{ fontSize: "0.68rem", color: "#334155" }}>處置狀態說明：</span>
+        <span style={{ fontSize: "0.8rem", color: "#334155" }}>處置狀態說明：</span>
         {(["normal", "warning", "disposition"] as DispositionStatus[]).map(s => {
           const cfg = DISPOSITION_CFG[s];
           return (
-            <span key={s} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "0.72rem" }}>
+            <span key={s} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "0.84rem" }}>
               <span
                 className="badge"
                 style={{ color: cfg.color, background: cfg.bg, borderColor: cfg.border }}
@@ -163,7 +163,7 @@ export default function WatchlistPanel({ onSelectStock }: Props) {
       {loading && !data ? (
         <div style={{ textAlign: "center", padding: "60px 0", color: "#334155" }}>
           <span className="spinner" style={{ width: 24, height: 24, borderWidth: 3 }} />
-          <div style={{ marginTop: 12, fontSize: "0.82rem" }}>載入持股資料中...</div>
+          <div style={{ marginTop: 12, fontSize: "0.97rem" }}>載入持股資料中...</div>
         </div>
       ) : items.length === 0 ? (
         <div
@@ -177,8 +177,8 @@ export default function WatchlistPanel({ onSelectStock }: Props) {
             <rect x="3" y="3" width="18" height="18" rx="2" stroke="#00d4ff" strokeWidth="1.5" />
             <path d="M8 12h8M12 8v8" stroke="#00d4ff" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
-          <div style={{ fontSize: "0.9rem", marginBottom: 6 }}>持股清單是空的</div>
-          <div style={{ fontSize: "0.75rem" }}>在上方輸入股票代碼開始追蹤</div>
+          <div style={{ fontSize: "1.05rem", marginBottom: 6 }}>持股清單是空的</div>
+          <div style={{ fontSize: "0.88rem" }}>在上方輸入股票代碼開始追蹤</div>
         </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -187,8 +187,8 @@ export default function WatchlistPanel({ onSelectStock }: Props) {
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr auto auto auto",
-              gap: 12, padding: "6px 16px",
-              fontSize: "0.65rem", color: "#334155",
+              gap: 14, padding: "8px 18px",
+              fontSize: "0.75rem", color: "#334155",
               textTransform: "uppercase", letterSpacing: "0.1em",
             }}
           >
@@ -207,14 +207,14 @@ export default function WatchlistPanel({ onSelectStock }: Props) {
             >
               {/* Symbol */}
               <div>
-                <div className="mono neon-cyan" style={{ fontWeight: 700, fontSize: "0.95rem" }}>
+                <div className="mono neon-cyan" style={{ fontWeight: 700, fontSize: "1.1rem" }}>
                   {item.symbol}
                 </div>
-                <div style={{ fontSize: "0.68rem", color: "#334155" }}>點擊分析</div>
+                <div style={{ fontSize: "0.8rem", color: "#334155" }}>點擊分析</div>
               </div>
 
               {/* Company name */}
-              <div style={{ fontSize: "0.82rem", color: "#94a3b8", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              <div style={{ fontSize: "0.97rem", color: "#94a3b8", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {item.company_name}
               </div>
 
@@ -232,7 +232,7 @@ export default function WatchlistPanel({ onSelectStock }: Props) {
                 title="移除"
                 onClick={e => { e.stopPropagation(); handleRemove(item.symbol); }}
               >
-                <svg viewBox="0 0 24 24" fill="none" width={14} height={14}>
+                <svg viewBox="0 0 24 24" fill="none" width={16} height={16}>
                   <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </button>
@@ -243,7 +243,7 @@ export default function WatchlistPanel({ onSelectStock }: Props) {
 
       {/* ── Updated timestamp ──────────────────────────────── */}
       {data && (
-        <div style={{ fontSize: "0.68rem", color: "#1e293b", textAlign: "right" }}>
+        <div style={{ fontSize: "0.8rem", color: "#1e293b", textAlign: "right" }}>
           最後更新：{data.updated_at}
         </div>
       )}

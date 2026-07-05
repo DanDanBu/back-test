@@ -12,7 +12,7 @@ type Tab = "analysis" | "watchlist";
 
 function TrendIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" width={20} height={20}>
+    <svg viewBox="0 0 24 24" fill="none" width={22} height={22}>
       <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" stroke="#00d4ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       <polyline points="16 7 22 7 22 13" stroke="#00d4ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
@@ -25,7 +25,7 @@ function ChartEmptyState() {
       <svg viewBox="0 0 24 24" fill="none" width={32} height={32} opacity={0.4}>
         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke="#00d4ff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-      <span style={{ fontSize: "0.82rem" }}>設定均線參數後執行回測</span>
+      <span style={{ fontSize: "0.97rem" }}>設定均線參數後執行回測</span>
     </div>
   );
 }
@@ -93,29 +93,29 @@ export default function App() {
 
       {/* ── Header ───────────────────────────────────────────── */}
       <header style={{ position: "sticky", top: 0, zIndex: 50, background: "rgba(5,10,20,0.94)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(0,212,255,0.06)" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "12px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ maxWidth: 1360, margin: "0 auto", padding: "12px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <div style={{ width: 36, height: 36, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,212,255,0.1)", border: "1px solid rgba(0,212,255,0.25)" }}>
+            <div style={{ width: 42, height: 42, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,212,255,0.1)", border: "1px solid rgba(0,212,255,0.25)" }}>
               <TrendIcon />
             </div>
             <div>
-              <div style={{ fontWeight: 700, letterSpacing: "0.08em", fontSize: "1rem" }}>
+              <div style={{ fontWeight: 700, letterSpacing: "0.08em", fontSize: "1.15rem" }}>
                 <span className="neon-cyan">QUANT</span>
                 <span style={{ color: "#7c3aed" }}>·</span>
                 <span style={{ color: "#e2e8f0" }}>DASH</span>
               </div>
-              <div style={{ fontSize: "0.62rem", color: "#334155", letterSpacing: "0.06em" }}>STOCK FUNDAMENTALS SYSTEM</div>
+              <div style={{ fontSize: "0.72rem", color: "#334155", letterSpacing: "0.06em" }}>STOCK FUNDAMENTALS SYSTEM</div>
             </div>
           </div>
           {fundamentals && activeTab === "analysis" && (
-            <div style={{ fontSize: "0.78rem", color: "#475569" }}>
+            <div style={{ fontSize: "0.92rem", color: "#475569" }}>
               {fundamentals.symbol} · {fundamentals.company_name}
             </div>
           )}
         </div>
 
         {/* ── Tab bar ─────────────────────────────────────────── */}
-        <div className="tab-bar" style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <div className="tab-bar" style={{ maxWidth: 1360, margin: "0 auto" }}>
           <button className={`tab-btn ${activeTab === "analysis" ? "active" : ""}`} onClick={() => setActiveTab("analysis")}>
             股票搜尋分析
           </button>
@@ -126,7 +126,7 @@ export default function App() {
       </header>
 
       {/* ── Main ─────────────────────────────────────────────── */}
-      <main style={{ maxWidth: 1280, margin: "0 auto", padding: "28px 24px" }}>
+      <main style={{ maxWidth: 1360, margin: "0 auto", padding: "32px 24px" }}>
 
         {activeTab === "watchlist" ? (
           <WatchlistPanel onSelectStock={handleWatchlistSelect} />
@@ -136,7 +136,7 @@ export default function App() {
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "65vh", textAlign: "center", position: "relative" }}>
             <div className="hero-glow" />
 
-            <div style={{ fontSize: "0.68rem", letterSpacing: "0.15em", color: "#334155", textTransform: "uppercase", marginBottom: 12 }}>
+            <div style={{ fontSize: "0.8rem", letterSpacing: "0.15em", color: "#334155", textTransform: "uppercase", marginBottom: 12 }}>
               Based on Buffett &amp; Lynch Principles
             </div>
             <h1 style={{ fontSize: "clamp(2.2rem, 6vw, 3.8rem)", fontWeight: 800, lineHeight: 1.1, marginBottom: 16, letterSpacing: "-0.02em" }}>
@@ -144,7 +144,7 @@ export default function App() {
               <span style={{ color: "#e2e8f0" }}>股票</span>
               <span style={{ color: "#7c3aed", textShadow: "0 0 20px rgba(124,58,237,0.5)" }}>分析</span>
             </h1>
-            <p style={{ color: "#64748b", marginBottom: 40, maxWidth: 420, lineHeight: 1.7, fontSize: "0.9rem" }}>
+            <p style={{ color: "#64748b", marginBottom: 40, maxWidth: 420, lineHeight: 1.7, fontSize: "1.05rem" }}>
               整合<strong style={{ color: "#94a3b8" }}>巴菲特</strong>的價值投資心法與
               <strong style={{ color: "#94a3b8" }}>彼得林區</strong>的成長策略，
               量化解析每一支股票的基本面體質
@@ -158,19 +158,19 @@ export default function App() {
                 onKeyDown={e => e.key === "Enter" && handleSearch()}
                 placeholder="輸入股票代碼 (e.g. AAPL)"
                 className="tech-input"
-                style={{ flex: 1, fontSize: "1rem" }}
+                style={{ flex: 1, fontSize: "1.15rem" }}
               />
-              <button onClick={() => handleSearch()} disabled={loadingFund} className="tech-button" style={{ fontSize: "1rem" }}>
+              <button onClick={() => handleSearch()} disabled={loadingFund} className="tech-button" style={{ fontSize: "1.15rem" }}>
                 {loadingFund ? <span style={{ display: "flex", alignItems: "center", gap: 8 }}><span className="spinner" />搜尋中</span> : "搜尋分析"}
               </button>
             </div>
 
-            {fundError && <div style={{ marginTop: 12, fontSize: "0.82rem", color: "#ff4040" }}>{fundError}</div>}
+            {fundError && <div style={{ marginTop: 12, fontSize: "0.97rem", color: "#ff4040" }}>{fundError}</div>}
 
             <div style={{ display: "flex", gap: 8, marginTop: 20, flexWrap: "wrap", justifyContent: "center" }}>
               {["AAPL", "TSLA", "NVDA", "MSFT", "2330.TW"].map(t => (
                 <button key={t} onClick={() => setInputSymbol(t)}
-                  style={{ background: "rgba(0,212,255,0.06)", border: "1px solid rgba(0,212,255,0.15)", borderRadius: 6, color: "#64748b", padding: "4px 12px", fontSize: "0.75rem", cursor: "pointer" }}>
+                  style={{ background: "rgba(0,212,255,0.06)", border: "1px solid rgba(0,212,255,0.15)", borderRadius: 6, color: "#64748b", padding: "4px 12px", fontSize: "0.88rem", cursor: "pointer" }}>
                   {t}
                 </button>
               ))}
@@ -180,7 +180,7 @@ export default function App() {
         ) : (
 
           /* ── Dashboard ───────────────────────────────────── */
-          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
 
             {/* compact search */}
             <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
@@ -196,30 +196,30 @@ export default function App() {
               <button onClick={() => handleSearch()} disabled={loadingFund} className="tech-button" style={{ padding: "9px 16px" }}>
                 {loadingFund ? <span className="spinner" /> : "切換股票"}
               </button>
-              {fundError && <span style={{ fontSize: "0.8rem", color: "#ff4040" }}>{fundError}</span>}
+              {fundError && <span style={{ fontSize: "0.95rem", color: "#ff4040" }}>{fundError}</span>}
             </div>
 
             {/* Company header */}
-            <div className="glass-card" style={{ padding: "20px 24px" }}>
-              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
+            <div className="glass-card" style={{ padding: "24px 28px" }}>
+              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 20 }}>
                 <div>
                   <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
-                    <span className="neon-cyan mono" style={{ fontSize: "2rem", fontWeight: 800 }}>{fundamentals.symbol}</span>
-                    <span style={{ padding: "3px 12px", borderRadius: 999, fontSize: "0.75rem", fontWeight: 600, background: "rgba(124,58,237,0.14)", color: "#a78bfa", border: "1px solid rgba(124,58,237,0.3)" }}>
+                    <span className="neon-cyan mono" style={{ fontSize: "2.2rem", fontWeight: 800 }}>{fundamentals.symbol}</span>
+                    <span style={{ padding: "3px 12px", borderRadius: 999, fontSize: "0.88rem", fontWeight: 600, background: "rgba(124,58,237,0.14)", color: "#a78bfa", border: "1px solid rgba(124,58,237,0.3)" }}>
                       {fundamentals.sector}
                     </span>
                   </div>
-                  <div style={{ fontSize: "1.1rem", color: "#cbd5e1", marginBottom: 4 }}>{fundamentals.company_name}</div>
-                  <div style={{ fontSize: "0.78rem", color: "#475569" }}>{fundamentals.industry}</div>
+                  <div style={{ fontSize: "1.25rem", color: "#cbd5e1", marginBottom: 4 }}>{fundamentals.company_name}</div>
+                  <div style={{ fontSize: "0.92rem", color: "#475569" }}>{fundamentals.industry}</div>
                 </div>
                 <div style={{ textAlign: "right" }}>
                   {fundamentals.current_price != null && (
-                    <div className="mono neon-green" style={{ fontSize: "2.4rem", fontWeight: 800, lineHeight: 1 }}>
+                    <div className="mono neon-green" style={{ fontSize: "2.6rem", fontWeight: 800, lineHeight: 1 }}>
                       ${fundamentals.current_price.toFixed(2)}
                     </div>
                   )}
                   {fundamentals.dividend_yield != null && (
-                    <div style={{ fontSize: "0.78rem", color: "#64748b", marginTop: 4 }}>
+                    <div style={{ fontSize: "0.92rem", color: "#64748b", marginTop: 4 }}>
                       殖利率 {(fundamentals.dividend_yield * 100).toFixed(2)}%
                     </div>
                   )}
@@ -228,32 +228,32 @@ export default function App() {
             </div>
 
             {/* Two-column */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 20, alignItems: "start" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))", gap: 24, alignItems: "start" }}>
 
               {/* Left — Fundamentals */}
-              <div className="glass-card" style={{ padding: 24, position: "relative", overflow: "hidden" }}>
+              <div className="glass-card" style={{ padding: 28, position: "relative", overflow: "hidden" }}>
                 <div className="scan-line" />
-                <h2 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: 20, display: "flex", alignItems: "center", gap: 10 }}>
+                <h2 style={{ fontSize: "1.15rem", fontWeight: 700, marginBottom: 22, display: "flex", alignItems: "center", gap: 10 }}>
                   <span className="neon-cyan">基本面分析</span>
-                  <span style={{ fontSize: "0.7rem", color: "#334155", fontWeight: 400 }}>Buffett · Lynch</span>
+                  <span style={{ fontSize: "0.82rem", color: "#334155", fontWeight: 400 }}>Buffett · Lynch</span>
                 </h2>
                 <FundamentalsPanel data={fundamentals} />
               </div>
 
               {/* Right — Backtest */}
-              <div className="glass-card" style={{ padding: 24 }}>
-                <h2 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: 20, display: "flex", alignItems: "center", gap: 10 }}>
+              <div className="glass-card" style={{ padding: 28 }}>
+                <h2 style={{ fontSize: "1.15rem", fontWeight: 700, marginBottom: 22, display: "flex", alignItems: "center", gap: 10 }}>
                   <span className="neon-cyan">均線回測策略</span>
-                  <span style={{ fontSize: "0.7rem", color: "#334155", fontWeight: 400 }}>SMA Crossover</span>
+                  <span style={{ fontSize: "0.82rem", color: "#334155", fontWeight: 400 }}>SMA Crossover</span>
                 </h2>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 18 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 20 }}>
                   {[
                     { label: "短期均線 (天)", value: shortWindow, onChange: setShortWindow },
                     { label: "長期均線 (天)", value: longWindow,  onChange: setLongWindow  },
                   ].map(({ label, value, onChange }) => (
                     <div key={label}>
-                      <label style={{ display: "block", fontSize: "0.7rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>{label}</label>
+                      <label style={{ display: "block", fontSize: "0.82rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>{label}</label>
                       <input type="number" value={value} onChange={e => onChange(Number(e.target.value))} className="tech-input" style={{ width: "100%" }} />
                     </div>
                   ))}
@@ -265,12 +265,12 @@ export default function App() {
 
                 {backtestResult ? (
                   <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 18px", borderRadius: 8, background: "rgba(0,0,0,0.3)", border: `1px solid ${returnColor}30` }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", borderRadius: 8, background: "rgba(0,0,0,0.3)", border: `1px solid ${returnColor}30` }}>
                       <div>
-                        <div style={{ fontSize: "0.68rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>策略累積報酬</div>
-                        <div style={{ fontSize: "0.8rem", color: "#334155" }}>SMA {backtestResult.short_window} / {backtestResult.long_window}</div>
+                        <div style={{ fontSize: "0.8rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>策略累積報酬</div>
+                        <div style={{ fontSize: "0.95rem", color: "#334155" }}>SMA {backtestResult.short_window} / {backtestResult.long_window}</div>
                       </div>
-                      <div className="mono" style={{ fontSize: "2.2rem", fontWeight: 800, color: returnColor, textShadow: `0 0 24px ${returnColor}55` }}>
+                      <div className="mono" style={{ fontSize: "2.4rem", fontWeight: 800, color: returnColor, textShadow: `0 0 24px ${returnColor}55` }}>
                         {returnPct >= 0 ? "+" : ""}{returnPct.toFixed(2)}%
                       </div>
                     </div>
@@ -279,10 +279,10 @@ export default function App() {
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={chartData} margin={{ top: 4, right: 4, bottom: 0, left: -8 }}>
                           <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,212,255,0.05)" />
-                          <XAxis dataKey="day" stroke="#1e293b" tick={{ fill: "#334155", fontSize: 10 }} />
-                          <YAxis stroke="#1e293b" tick={{ fill: "#334155", fontSize: 10 }} tickFormatter={v => `${v}%`} />
+                          <XAxis dataKey="day" stroke="#1e293b" tick={{ fill: "#334155", fontSize: 12 }} />
+                          <YAxis stroke="#1e293b" tick={{ fill: "#334155", fontSize: 12 }} tickFormatter={v => `${v}%`} />
                           <Tooltip
-                            contentStyle={{ background: "rgba(10,22,40,0.96)", border: "1px solid rgba(0,212,255,0.2)", borderRadius: 8, color: "#e2e8f0", fontSize: "0.8rem" }}
+                            contentStyle={{ background: "rgba(10,22,40,0.96)", border: "1px solid rgba(0,212,255,0.2)", borderRadius: 8, color: "#e2e8f0", fontSize: "0.95rem" }}
                             formatter={(val: number) => [`${val}%`, "累積報酬"]}
                             labelFormatter={l => `第 ${l} 天`}
                           />
@@ -295,7 +295,7 @@ export default function App() {
                   <ChartEmptyState />
                 )}
 
-                <div style={{ marginTop: 16, fontSize: "0.68rem", color: "#1e293b", lineHeight: 1.7, borderTop: "1px solid rgba(255,255,255,0.04)", paddingTop: 12 }}>
+                <div style={{ marginTop: 16, fontSize: "0.8rem", color: "#1e293b", lineHeight: 1.7, borderTop: "1px solid rgba(255,255,255,0.04)", paddingTop: 12 }}>
                   短期均線上穿長期均線時做多；下穿時做空。回測使用最近 1 年日線資料，最後 30 日累積報酬。
                 </div>
               </div>
